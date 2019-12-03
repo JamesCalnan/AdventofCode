@@ -51,6 +51,7 @@
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -69,8 +70,9 @@
     <Import Include="System.Threading.Tasks" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Day one\Rocket Equation.vb" />
-    <Compile Include="Day two\Program alarm.vb" />
+    <Compile Include="Day 1\Rocket Equation.vb" />
+    <Compile Include="Day 2\Program alarm.vb" />
+    <Compile Include="Day 3\Crossed wires.vb" />
     <Compile Include="Module1.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">
