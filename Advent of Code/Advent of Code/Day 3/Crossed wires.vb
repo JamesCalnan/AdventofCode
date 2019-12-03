@@ -25,10 +25,9 @@ Module Crossed_wires
                 Case "R"
                     xOffset = 1
             End Select
-            For x = 0 To amount
+            For x = 1 To amount
                 currentPoint = New Point(currentPoint.X + xOffset, currentPoint.Y + yOffset)
                 newWire.Add(currentPoint)
-
             Next
         Next
         Return newWire
@@ -38,21 +37,15 @@ Module Crossed_wires
         Dim wire1 = parseWires("S:\AoC\Advent of Code\Advent of Code\Day 3\data1.txt")
         Dim wire2 = parseWires("S:\AoC\Advent of Code\Advent of Code\Day 3\data2.txt")
         Dim intersections = wire1.Intersect(wire2).Where(Function(p) p.X <> 0 And p.Y <> 0)
-
-        Dim enumerable As IEnumerable(Of Point) = intersections.ToList()
-        For Each wire In enumerable
-            Console.WriteLine(Math.Abs(wire.X) + Math.Abs(wire.Y))
-        Next
-
-        Dim closest = enumerable.OrderBy(Function(p) Math.Abs(p.X) + Math.Abs(p.Y)).First()
-
+        Dim closest = intersections.OrderBy(Function(p) Math.Abs(p.X) + Math.Abs(p.Y)).First()
         Dim distance = Math.Abs(closest.X) + Math.Abs(closest.Y)
-
-
-
         Return distance
     End Function
-    Function calculateManhattenDistance(inputPoint As point)
-        Return Math.Abs(inputPoint.X) + Math.Abs(inputPoint.Y)
+    Function part2()
+        Dim wire1 = parseWires("S:\AoC\Advent of Code\Advent of Code\Day 3\data1.txt")
+        Dim wire2 = parseWires("S:\AoC\Advent of Code\Advent of Code\Day 3\data2.txt")
+        Dim intersections = wire1.Intersect(wire2).Where(Function(p) p.X <> 0 And p.Y <> 0)
+        Dim closestMovement = intersections.Select(Function(p) wire1.IndexOf(p) + wire2.IndexOf(p)).OrderBy(Function(j) True).First()
+        Return closestMovement
     End Function
 End Module

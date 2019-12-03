@@ -2,7 +2,7 @@
 
     Sub Main()
 
-        My.Computer.Clipboard.SetText(Crossed_wires.part1())
+        My.Computer.Clipboard.SetText(Crossed_wires.part2())
     End Sub
 
 End Module
