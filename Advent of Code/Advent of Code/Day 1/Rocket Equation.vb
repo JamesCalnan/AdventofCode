@@ -1,7 +1,7 @@
 ﻿Imports System.IO
 Module Rocket_Equation
 
-    Function returnFuelRequirements()
+    Function part1()
         Dim value As New List(Of Double)
         Using reader = New StreamReader("S:\Advent of Code\Advent of Code\Day 1\data.txt")
             Do Until reader.EndOfStream
@@ -11,7 +11,7 @@ Module Rocket_Equation
         Return value.Sum
     End Function
 
-    Function returnFuelRequirementsPart2()
+    Function part2()
         Dim values As New List(Of Double)
         Using reader = New StreamReader("S:\Advent of Code\Advent of Code\Day 1\data.txt")
             Do Until reader.EndOfStream
