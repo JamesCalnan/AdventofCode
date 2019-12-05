@@ -1,7 +1,8 @@
 ﻿Module Module1
 
     Sub Main()
-        My.Computer.Clipboard.SetText(Secure_Container.part2())
+        Asteroids.part1and2(5)
+        Console.ReadKey()
     End Sub
 
 End Module

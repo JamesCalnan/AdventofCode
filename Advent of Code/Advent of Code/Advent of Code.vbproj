@@ -74,6 +74,7 @@
     <Compile Include="Day 2\Program alarm.vb" />
     <Compile Include="Day 3\Crossed wires.vb" />
     <Compile Include="Day 4\Secure Container.vb" />
+    <Compile Include="Day 5\Asteroids.vb" />
     <Compile Include="Module1.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">
