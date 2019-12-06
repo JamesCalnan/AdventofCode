@@ -1,7 +1,7 @@
 ﻿Module Module1
 
     Sub Main()
-        Console.WriteLine(Universal_Orbit_Map.part2())
+        Console.WriteLine(Universal_Orbit_Map.part1())
         Console.ReadKey()
     End Sub
 
