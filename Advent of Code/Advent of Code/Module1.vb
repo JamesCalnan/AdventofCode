@@ -1,7 +1,7 @@
 ﻿Module Module1
 
     Sub Main()
-        Asteroids.part1and2(5)
+        Console.WriteLine(Universal_Orbit_Map.part2())
         Console.ReadKey()
     End Sub
 
