@@ -76,6 +76,8 @@
     <Compile Include="Day 4\Secure Container.vb" />
     <Compile Include="Day 5\Asteroids.vb" />
     <Compile Include="Day 6\Universal Orbit Map.vb" />
+    <Compile Include="Day 7\Amplification Circuit.vb" />
+    <Compile Include="Day 8\Space Image Format.vb" />
     <Compile Include="Module1.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">
