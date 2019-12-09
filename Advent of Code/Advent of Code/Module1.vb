@@ -3,7 +3,7 @@
     Sub Main()
 
 
-        Amplification_Circuit.part1()
+        Amplification_Circuit.part2()
 
         Console.ReadKey()
     End Sub

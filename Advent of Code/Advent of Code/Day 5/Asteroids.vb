@@ -5,7 +5,10 @@
         While 1
             Dim instructionInput = instructions(i)
             If instructionInput = 99 Then Return
-            Dim parseInstruction As List(Of Integer) = (From thing In instructions(i).ToString() Select Int(thing.ToString())).Cast(Of Integer)().ToList()
+            Dim parseInstruction As New List(Of Integer) '= (From thing In instructions(i).ToString() Select Int(thing.ToString())).Cast(Of Integer)().ToList()
+            For Each thing In instructionInput.ToString()
+                parseInstruction.Add(Int(thing.ToString()))
+            Next
             parseInstruction.Reverse()
             Dim opcode = parseInstruction(0)
             Dim mode As New List(Of Integer)
