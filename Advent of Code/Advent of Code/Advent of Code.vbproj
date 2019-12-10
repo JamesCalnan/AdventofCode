@@ -70,6 +70,7 @@
     <Import Include="System.Threading.Tasks" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Day 10\Monitoring Station.vb" />
     <Compile Include="Day 1\Rocket Equation.vb" />
     <Compile Include="Day 2\Program alarm.vb" />
     <Compile Include="Day 3\Crossed wires.vb" />

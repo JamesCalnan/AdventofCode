@@ -3,7 +3,7 @@
     Sub Main()
 
 
-        Amplification_Circuit.part2()
+        Monitoring_Station.part1()
 
         Console.ReadKey()
     End Sub
