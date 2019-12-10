@@ -6,7 +6,7 @@ Module Monitoring_Station
         Dim asteriodPoints As New List(Of Point)
         Dim x = 0
         Dim y = 0
-        Using reader = New StreamReader("C:\Users\James\Documents\GitHub\AdventofCode\Advent of Code\Advent of Code\Day 10\test data 2.txt")
+        Using reader = New StreamReader("S:\AoC\Advent of Code\Advent of Code\Day 10\test data 4.txt")
             Do Until reader.EndOfStream
                 For Each point In reader.ReadLine
                     If point = "#" Then asteriodPoints.Add(New Point(x, y))
@@ -19,76 +19,166 @@ Module Monitoring_Station
         Return asteriodPoints
     End Function
     Function part1()
+        Dim asteroids = loadData()
+        Dim value As New asteroidValue(0, New Point(0, 0))
+        For Each p1 In asteroids
+            Dim count = 0
+            For Each p2 In asteroids
+                Dim blocked = False
+                For Each p3 In From p31 In asteroids Where p1 <> p2 And p2 <> p31 And p31 <> p1
+                    If isCollinear(p1, p2, p3) Then
+                        If p1.X <> p2.X Then
+                            If isBetween(p1.X, p3.X, p2.X) Then blocked = True
+                        Else
+                            If isBetween(p1.Y, p3.Y, p2.Y) Then blocked = True
+                        End If
+                    End If
+                    If blocked Then Exit For
+                Next
+                If Not blocked Then count += 1
+            Next
+            If count > value.asteriodsVisible Then value.update(count - 1, p1)
+        Next
+        Return value.returnFinalValue()
+    End Function
 
+    Function part2()
         Dim asteroids = loadData()
 
-        Dim value As New asteroidValue(0, New Point(0, 0))
+        Dim stationLocation As New Point(11, 13)
 
-        resetGrid(asteroids)
+        asteroids.Remove(stationLocation)
+
+        Dim pointWithStuff As New List(Of distAnglePoint)
+
+        For Each asteroid In asteroids
+            Dim distance = getDistance(stationLocation, asteroid)
+            Dim angle As Double = getAngle(stationLocation, asteroid)
+            pointWithStuff.Add(New distAnglePoint(distance, angle, asteroid))
+        Next
+        'not 2517
 
 
 
-        For Each point1 In asteroids
-            'current point
-            Console.ForegroundColor = ConsoleColor.Cyan
-            Console.SetCursorPosition(point1.X, point1.Y)
-            Console.Write("X")
-            Dim currentStationValue As New asteroidValue(0, point1)
-            For Each point2 In asteroids
-                Console.ForegroundColor = ConsoleColor.Red
-                Console.SetCursorPosition(point1.X, point1.Y)
-                Console.Write("X")
-                'need to check if this point is in front of the point3
-                For Each point3 In asteroids
+        Console.WriteLine(pointWithStuff(0).angle)
 
-                    Console.ForegroundColor = ConsoleColor.Green
-                    Console.SetCursorPosition(point1.X, point1.Y)
-                    Console.Write("X")
-                    Console.ReadKey()
-                    'need to check if this point is on the same line as point1 and 
-                    If isCollinear(point1, point2, point3) Then
-                        'the 3 points are on a straight line
-                        'need to check if point2 is in the middle of p1 and p3
-                        If point1.X <> point3.X Then
-                            If isBetween(point1.X, point2.X, point3.X) Then
-                                'not a valid point as point2 is in front of point3 
-                                Exit For
-                            Else
-                                'is on a line with point2 & 3 but point 2 isnt in front of 3
-                                currentStationValue.asteriodsVisible += 1
-                            End If
-                        Else
-                            If isBetween(point1.Y, point2.Y, point3.Y) Then
-                                'not a valid point as point2 is in front of point3 
-                                Exit For
-                            Else
-                                'is on a line with point2 & 3 but point 2 isnt in front of 3
-                                currentStationValue.asteriodsVisible += 1
-                            End If
-                        End If
-                    Else
-                        'not collinear
-                        Exit For
-                    End If
+        pointWithStuff = insertionSortByAngle(pointWithStuff)
+
+
+        'get distAnglePoint where the angle is the same
+
+        Dim newList As New List(Of List(Of distAnglePoint))
+
+        Dim prevAngle As Double = 0
+        newList.Add(New List(Of distAnglePoint) From {pointWithStuff(0)})
+        For Each thing In pointWithStuff
+
+            Dim currentAngle = Math.Round(thing.angle * 1000) / 1000
+            Dim prevAngleRounded = Math.Round(prevAngle * 1000) / 1000
+            If currentAngle = prevAngleRounded Then
+                newList(newList.Count - 1).Add(thing)
+            Else
+                newList.Add(New List(Of distAnglePoint) From {thing})
+            End If
+
+            prevAngle = thing.angle
+
+        Next
+
+        pointWithStuff.Clear()
+
+        For Each subList In newList
+
+            If subList.Count > 2 Then
+                Dim sortedList = insertionSortByDistance(subList)
+                For Each thing In sortedList
+                    pointWithStuff.Add(thing)
                 Next
-            Next
+            Else
+                pointWithStuff.Add(subList(0))
+            End If
+
         Next
 
 
-        Return Nothing
+
+
+        Dim index = pointWithStuff.Count - 1
+
+        Dim previousAngle As Double = -1
+
+        Dim count = 0
+
+        pointWithStuff.Reverse()
+
+        Do
+
+            Dim angle = pointWithStuff(index).angle
+
+            If Math.Round(angle * 1000) / 1000 <> Math.Round(previousAngle * 1000) / 1000 Or pointWithStuff.Count <= 1 Then
+
+                Dim returnPoint = pointWithStuff(index).point
+                pointWithStuff.RemoveAt(index)
+                count += 1
+                If count = 200 Then
+                    Return returnPoint.X * 100 + returnPoint.Y
+                End If
+
+            End If
+            previousAngle = angle
+            index -= 1
+            If index < 0 Then index = pointWithStuff.Count - 1
+        Loop
+
+        Return "bad"
     End Function
-    Sub resetGrid(asteroids As List(Of Point))
-        Console.Clear()
-        Console.ResetColor()
+    Function insertionSortByAngle(inputArr As List(Of distAnglePoint))
+        Dim a = inputArr
+        Dim i = 1
+        While i < a.Count
+            Dim j = i
+            While j > 0 AndAlso a(j - 1).angle > a(j).angle
+                Dim temp = a(j - 1)
+                a(j - 1) = a(j)
+                a(j) = temp
+                j -= 1
+            End While
+            i += 1
+        End While
+        Return a
+    End Function
+    Function insertionSortByDistance(inputArr As List(Of distAnglePoint))
+        Dim a = inputArr
+        Dim i = 1
+        While i < a.Count
+            Dim j = i
+            While j > 0 AndAlso a(j - 1).distance > a(j).distance
+                Dim temp = a(j - 1)
+                a(j - 1) = a(j)
+                a(j) = temp
+                j -= 1
+            End While
+            i += 1
+        End While
+        Return a
+    End Function
+    Function getDistance(p1 As Point, p2 As Point) As Integer
+        Return (p1.X - p2.X) ^ 2 + (p1.Y - p2.Y) ^ 2
+    End Function
 
-        For Each point In asteroids
-            Console.SetCursorPosition(point.X, point.Y)
-            Console.Write("X")
-        Next
-    End Sub
+    Function getAngle(p1 As Point, p2 As Point) As Double
+        Dim vect As New Point(p1.X - p2.X, p1.Y - p2.Y)
+        Dim toadd
+        If p1.X < p2.X Then
+            toadd = Math.PI
+        Else
+            toadd = 0
+        End If
+        Return toadd + Math.Acos(-vect.Y / Math.Sqrt(vect.X ^ 2 + vect.Y ^ 2))
+    End Function
 
     Function isBetween(p1 As Integer, p2 As Integer, p3 As Integer)
-        Return p1 <= p2 <= p3 Or p3 <= p2 <= p1
+        Return p1 <= p3 And p3 <= p2 Or p2 <= p3 And p3 <= p1
     End Function
 
     Function isCollinear(p1 As Point, p2 As Point, p3 As Point)
@@ -98,6 +188,19 @@ Module Monitoring_Station
     End Function
 
 End Module
+Class distAnglePoint
+    Public distance As Integer
+    Public angle As Double
+    Public point As Point
+
+    Public Sub New(newDist As Integer, newAngle As Double, newPoint As Point)
+        distance = newDist
+        angle = newAngle
+        point = newPoint
+    End Sub
+
+
+End Class
 Class asteroidValue
     Public asteriodsVisible As Integer
     Public coord As Point

@@ -3,7 +3,7 @@
     Sub Main()
 
 
-        Monitoring_Station.part1()
+        Console.WriteLine(Monitoring_Station.part2())
 
         Console.ReadKey()
     End Sub
