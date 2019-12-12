@@ -18,28 +18,11 @@ Module N_Body_Problem
             Do Until reader.EndOfStream
                 Dim currentLine = reader.ReadLine
                 Dim splitLine = currentLine.Split(",")
-                Dim splitOnEqual = splitLine(0).Split("=")
-                Console.WriteLine(Join(splitOnEqual, " "))
-                Console.WriteLine(splitOnEqual(splitOnEqual.Count - 1))
-
-                Console.ReadKey()
-                Dim x, y, z As String
-                Dim intPos As Integer = 0
-                For i = 0 To currentLine.Count - 1
-                    If currentLine(i) = "=" Then
-                        For j = i + 1 To currentLine.Count - 2
-                            If currentLine(j) = "," Then
-                                intPos += 1
-                                Exit For
-                            End If
-                            If intPos = 0 Then x += currentLine(j)
-                            If intPos = 1 Then y += currentLine(j)
-                            If intPos = 2 Then z += currentLine(j)
-                        Next
-                    End If
-                Next
-                Console.WriteLine($"x: {x}  y: {y}  z: {z}")
-                pointList.Add(New Point3D(Int(x), Int(y), Int(z)))
+                Dim x = splitLine(0).Split("=")
+                Dim y = splitLine(1).Split("=")
+                Dim z = splitLine(2).Split("=")
+                z = z(z.Count - 1).Split(">")
+                pointList.Add(New Point3D(Int(x(x.Count - 1)), Int(y(y.Count - 1)), Int(z(0))))
             Loop
         End Using
         Return pointList
