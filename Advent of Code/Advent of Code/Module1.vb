@@ -3,7 +3,7 @@
     Sub Main()
 
 
-        Console.WriteLine(Monitoring_Station.part2())
+        Console.WriteLine(N_Body_Problem.part1())
 
         Console.ReadKey()
     End Sub

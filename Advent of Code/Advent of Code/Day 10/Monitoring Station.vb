@@ -1,5 +1,6 @@
 ﻿Imports System.IO
 Imports System.Drawing
+Imports System.Text
 Module Monitoring_Station
 
     Function loadData() As List(Of Point)
@@ -57,7 +58,6 @@ Module Monitoring_Station
             pointWithStuff.Add(New distAnglePoint(distance, angle, asteroid))
         Next
         'not 2517
-
 
 
         Console.WriteLine(pointWithStuff(0).angle)
