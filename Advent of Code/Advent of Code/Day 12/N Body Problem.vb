@@ -11,6 +11,8 @@ Module N_Body_Problem
         Dim stepNumber = getPoints()
 
 
+
+
     End Function
     Function getPoints()
         Dim pointList As New List(Of Point3D)

@@ -75,14 +75,15 @@
   <ItemGroup>
     <Compile Include="Day 10\Monitoring Station.vb" />
     <Compile Include="Day 12\N Body Problem.vb" />
-    <Compile Include="Day 1\Rocket Equation.vb" />
-    <Compile Include="Day 2\Program alarm.vb" />
-    <Compile Include="Day 3\Crossed wires.vb" />
-    <Compile Include="Day 4\Secure Container.vb" />
-    <Compile Include="Day 5\Asteroids.vb" />
-    <Compile Include="Day 6\Universal Orbit Map.vb" />
-    <Compile Include="Day 7\Amplification Circuit.vb" />
-    <Compile Include="Day 8\Space Image Format.vb" />
+    <Compile Include="Day 01\Rocket Equation.vb" />
+    <Compile Include="Day 02\Program alarm.vb" />
+    <Compile Include="Day 03\Crossed wires.vb" />
+    <Compile Include="Day 04\Secure Container.vb" />
+    <Compile Include="Day 05\Asteroids.vb" />
+    <Compile Include="Day 06\Universal Orbit Map.vb" />
+    <Compile Include="Day 07\Amplification Circuit.vb" />
+    <Compile Include="Day 08\Space Image Format.vb" />
+    <Compile Include="Day 20\Donut Maze.vb" />
     <Compile Include="Module1.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">

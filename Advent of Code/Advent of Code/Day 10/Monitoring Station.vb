@@ -219,7 +219,7 @@ Class asteroidValue
     End Sub
 
     Public Function returnFinalValue()
-        Return $"Asteriods visible: {asteriodsVisible}   Point: [{coord.X}, {coord.Y}]"
+        Return $"Asteriods visible: {asteriodsVisible}   Point: [{coord}]"
     End Function
 
 
