@@ -80,8 +80,8 @@ Module Donut_Maze
         Return validPoints
     End Function
 
-    Function returnCoord(adjacencyList As Dictionary(Of Point, List(Of Point)), map As Dictionary(Of Point, String), targetValue As String)
-        For Each point In adjacencyList.Keys
+    Function returnCoord(map As Dictionary(Of Point, String), targetValue As String)
+        For Each point In map.Keys
             If map(point) = targetValue Then Return point
         Next
         Return Nothing
@@ -118,13 +118,12 @@ Module Donut_Maze
         Return Nothing
     End Function
     Function part1()
-        printMap()
+        'printMap()
         Dim newMap = amendedMap(readMap)
-        Dim adjacencyList = constructAdjacencyList(newMap)
         Dim Q As New Queue(Of Point)
         Dim discovered As New Dictionary(Of Point, Boolean)
-        Dim start_V As Point = returnAdjacentPoint(newMap, returnCoord(adjacencyList, newMap, "AA"))
-        Dim target As Point = returnAdjacentPoint(newMap, returnCoord(adjacencyList, newMap, "ZZ"))
+        Dim start_V As Point = returnAdjacentPoint(newMap, returnCoord(newMap, "AA"))
+        Dim target As Point = returnAdjacentPoint(newMap, returnCoord(newMap, "ZZ"))
 
         Dim cameFrom As New Dictionary(Of Point, Point)
         For Each point In newMap.Keys
@@ -132,11 +131,10 @@ Module Donut_Maze
         Next
         Q.Enqueue(start_V)
         discovered(start_V) = True
-        Dim y = 1
-        Dim portalsUsed = 0
+        Console.ForegroundColor = ConsoleColor.Red
         While Q.Count > 0
             Dim v = Q.Dequeue
-            If v.Equals(target) Then Exit While
+            'print(v)
             For Each w As Point In validNeighbours(v, newMap)
 
                 If newMap(w) = "." Then
@@ -169,15 +167,13 @@ Module Donut_Maze
         Loop Until tempV.Equals(start_V)
         path.Reverse()
 
-        For Each point In path
-            print(point)
-        Next
+        'For Each point In path
+        '    print(point)
+        'Next
 
-        Console.SetCursorPosition(Console.WindowWidth / 2, 0)
         Console.ForegroundColor = ConsoleColor.White
-        Console.Write($"path length: {path.Count - 1 - portalsUsed}")
+        Return ($"path length: {path.Count - 1}")
 
-        Console.ReadKey()
     End Function
     Sub print(point As Point)
         Console.SetCursorPosition(point.X, point.Y)
