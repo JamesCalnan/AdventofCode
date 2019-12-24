@@ -83,7 +83,11 @@
     <Compile Include="Day 06\Universal Orbit Map.vb" />
     <Compile Include="Day 07\Amplification Circuit.vb" />
     <Compile Include="Day 08\Space Image Format.vb" />
+    <Compile Include="Day 16\Flawed Frequency Transmission.vb" />
+    <Compile Include="Day 18\Many-Worlds Interpretation.vb" />
     <Compile Include="Day 20\Donut Maze.vb" />
+    <Compile Include="Day 22\Slam Shuffle.vb" />
+    <Compile Include="Day 24\Planet of Discord.vb" />
     <Compile Include="Module1.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">

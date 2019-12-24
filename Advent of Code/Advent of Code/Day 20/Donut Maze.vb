@@ -1,11 +1,11 @@
 ﻿Imports System.IO
 Imports System.Drawing
 Module Donut_Maze
-    Function readMap() As Dictionary(Of Point, String)
+    Function readMap(path As String) As Dictionary(Of Point, String)
         Dim pointValues As New Dictionary(Of Point, String)
         Dim x = 5
         Dim y = 0
-        Using reader = New StreamReader("C:\Users\James\Documents\GitHub\AdventofCode\Advent of Code\Advent of Code\Day 20\test data2.txt")
+        Using reader = New StreamReader(path) '"C:\Users\James\Documents\GitHub\AdventofCode\Advent of Code\Advent of Code\Day 20\test data2.txt")
             Do Until reader.EndOfStream
                 Dim currentLine = reader.ReadLine
                 For Each value In currentLine
@@ -117,9 +117,9 @@ Module Donut_Maze
         Next
         Return Nothing
     End Function
-    Function part1()
-        'printMap()
-        Dim newMap = amendedMap(readMap)
+    Function part1(filepath As String)
+        printMap(filepath)
+        Dim newMap = amendedMap(readMap(filepath))
         Dim Q As New Queue(Of Point)
         Dim discovered As New Dictionary(Of Point, Boolean)
         Dim start_V As Point = returnAdjacentPoint(newMap, returnCoord(newMap, "AA"))
@@ -134,7 +134,7 @@ Module Donut_Maze
         Console.ForegroundColor = ConsoleColor.Red
         While Q.Count > 0
             Dim v = Q.Dequeue
-            'print(v)
+            print(v)
             For Each w As Point In validNeighbours(v, newMap)
 
                 If newMap(w) = "." Then
@@ -167,27 +167,26 @@ Module Donut_Maze
         Loop Until tempV.Equals(start_V)
         path.Reverse()
 
-        'For Each point In path
-        '    print(point)
-        'Next
+        For Each point In path
+            print(point)
+            Threading.Thread.Sleep(5)
+        Next
 
         Console.ForegroundColor = ConsoleColor.White
         Return ($"path length: {path.Count - 1}")
 
     End Function
-    Sub print(point As Point)
+    Sub print(point As Point, Optional printingValue As String = "")
         Console.SetCursorPosition(point.X, point.Y)
-        Console.Write("X")
+        Console.Write($"{If(printingValue = "", "X", printingValue)}")
     End Sub
-    Function printMap()
-        Console.ReadKey()
-        Dim pointValues = readMap()
+    Function printMap(path As String)
+        Dim pointValues = readMap(path)
         Console.ForegroundColor = ConsoleColor.White
         For Each pointValue In pointValues
             Console.SetCursorPosition(pointValue.Key.X, pointValue.Key.Y)
             Console.Write(pointValue.Value)
         Next
-        Console.ReadKey()
     End Function
 
 End Module
